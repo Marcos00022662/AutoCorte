@@ -1,13 +1,17 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-    <section>
-        <h1>CADASTRAR AGENDAMENTO</h1>
+    <section class="page-hero">
+        <div class="page-title">
+            <span>Agendamento</span>
+            <h1>Cadastrar novo horário</h1>
+            <p>Preencha os dados do cliente, escolha o serviço e confirme o melhor horário para o atendimento.</p>
+        </div>
 
-        <form method="post">
+        <form method="post" class="form-card">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Agendar</button>
+            <button type="submit">Agendar agora</button>
         </form>
     </section>
 {% endblock %}

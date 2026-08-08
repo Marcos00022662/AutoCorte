@@ -1,6 +1,4 @@
-# Python
-
-__pycache__/
+**pycache**/
 *.py[cod]
 *$py.class
 
@@ -19,7 +17,7 @@ staticfiles/
 venv/
 env/
 ENV/
-autocorteVENV/
+*VENV/
 
 # Environment variables
 

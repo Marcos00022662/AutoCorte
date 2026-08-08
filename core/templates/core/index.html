@@ -1,24 +1,56 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<section id="servicos">
-    <h1>Auto Corte</h1>
-    <p>BEM-VINDO AO AUTO CORTE!</p>
-</section>
+<section id="servicos" class="home-hero">
+    <div class="home-text">
+        <span>Boas-vindas</span>
+        <h1>Auto Corte</h1>
+        <p>Um salão moderno com cortes precisos, atendimento acolhedor e horários rápidos para você sair pronto e confiante.</p>
+        <div class="hero-actions">
+            <a class="btn-primary" href="{% url 'cadastrar_agendamento' %}">Agendar horário</a>
+            <a class="btn-secondary" href="{% url 'listar_servicos' %}">Ver serviços</a>
+        </div>
+    </div>
 
-
-<section id="contato">
-    <h2>Contato</h2>
-    <p>Entre em contato conosco para agendar um horário ou para obter mais informações sobre nossos serviços.</p>
+    <div class="hero-card">
+        <div class="hero-card-header">
+            <span>Serviço em destaque</span>
+            <strong>Corte + Barba</strong>
+        </div>
+        <p>Atendimento completo com corte detalhado, acabamento no estilo desejado e relaxante finalização de barba.</p>
+        <ul>
+            <li>Profissionais experientes</li>
+            <li>Produtos premium</li>
+            <li>Ambiente confortável</li>
+        </ul>
+    </div>
 </section>
 
 <section id="cortes">
-    
-</section> 
+    <h2>Serviços mais solicitados</h2>
+    <div class="service-grid">
+        <article class="service-card">
+            <h3>Corte masculino</h3>
+            <p>Seu visual, seu estilo, seu corte.</p>
+        </article>
+        <article class="service-card">
+            <h3>Barba</h3>
+            <p>Acabamento profissional para barba e contornos limpos.</p>
+        </article>
+        <article class="service-card">
+            <h3>Corte infantil</h3>
+            <p>Atendimento cuidadoso para os pequenos com resultados rápidos.</p>
+        </article>
+    </div>
+</section>
+
+<section id="contato">
+    <h2>Contato</h2>
+    <p>Entre em contato comigo para agendar um horário ou para obter mais informações sobre nossos serviços.</p>
+</section>
 
 <section id="sobre">
     <h2>Sobre</h2>
     <p>O Auto Corte é um serviço de corte de cabelo profissional, oferecendo uma experiência única para nossos clientes. Nossa equipe é composta por profissionais qualificados que estão sempre atualizados com as últimas tendências e técnicas de corte.</p>
 </section>
-   
 {% endblock %}
