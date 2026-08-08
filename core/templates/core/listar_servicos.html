@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<h1>LISTA DE SERVIÇOS</h1>
+
+<table border="1" cellpadding="10">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Duração</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for servico in servicos %}
+            <tr>
+                <td>{{ servico.nome }}</td>
+                <td>R$ {{ servico.preco }}</td>
+                <td>{{ servico.duracao }}</td>
+                <td>
+                    <a href="{% url 'editar_servico' servico.id %}">
+                        Editar
+                    </a>
+
+                    <form action="{% url 'excluir_servico' servico.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button class="button-link" type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">Nenhum serviço cadastrado.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock %}

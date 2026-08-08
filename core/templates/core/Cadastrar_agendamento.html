@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <section>
+        <h1>CADASTRAR AGENDAMENTO</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Agendar</button>
+        </form>
+    </section>
+{% endblock %}
