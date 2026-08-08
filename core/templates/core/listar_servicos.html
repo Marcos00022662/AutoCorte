@@ -4,15 +4,16 @@
 
 <h1>LISTA DE SERVIÇOS</h1>
 
-<table border="1" cellpadding="10">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Preço</th>
-            <th>Duração</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
+<div class="table-responsive">
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Duração</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
 
     <tbody>
         {% for servico in servicos %}
@@ -37,7 +38,7 @@
             </tr>
         {% endfor %}
     </tbody>
-
-</table>
+    </table>
+</div>
 
 {% endblock %}

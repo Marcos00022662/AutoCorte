@@ -4,17 +4,18 @@
 
 <h1>LISTA DE AGENDAMENTOS</h1>
 
-<table border="1" cellpadding="10">
-    <thead>
-        <tr>
-            <th>Cliente</th>
-            <th>Serviço</th>
-            <th>Data</th>
-            <th>Horário</th>
-            <th>Status</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
+<div class="table-responsive">
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Serviço</th>
+                <th>Data</th>
+                <th>Horário</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
 
     <tbody>
         {% for agendamento in agendamentos %}
@@ -43,6 +44,7 @@
             </tr>
         {% endfor %}
     </tbody>
-</table>
+    </table>
+</div>
 
 {% endblock %}

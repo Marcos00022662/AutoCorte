@@ -118,10 +118,33 @@ details {
     font-size: 12px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.03);
 }
 
 summary {
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+}
+
+summary::marker {
+    content: none;
+}
+
+summary::after {
+    content: "▾";
+    display: inline-block;
+    transition: transform 0.2s ease;
+    color: var(--dourado);
+}
+
+details[open] summary::after {
+    transform: rotate(180deg);
 }
 
 details[open] summary {
@@ -133,6 +156,10 @@ details p {
     color: #d8d0c3;
     font-size: 13px;
     line-height: 1.45;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 12px 14px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     white-space: nowrap;
 }
 
@@ -465,6 +492,38 @@ footer {
     padding: 28px 0 12px;
 }
 
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.redes-sociais {
+    display: inline-flex;
+    gap: 16px;
+}
+
+.redes-sociais a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--texto);
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.redes-sociais a:hover,
+.redes-sociais a:focus-visible {
+    transform: translateY(-2px);
+    background: rgba(201, 166, 107, 0.18);
+    color: var(--dourado);
+}
+
 @media (max-width: 980px) {
     #servicos {
         grid-template-columns: 1fr;
@@ -535,9 +594,16 @@ summary:focus-visible {
 }
 
 /* Tabelas */
-table {
+.table-responsive {
     width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     margin: 24px 0;
+}
+
+.table-responsive table {
+    width: 100%;
+    min-width: 720px;
     background-color: var(--fundo-card);
     border: 1px solid var(--borda);
     border-collapse: collapse;
