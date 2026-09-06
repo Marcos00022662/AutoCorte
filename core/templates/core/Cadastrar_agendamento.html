@@ -11,6 +11,7 @@
         <form method="post" class="form-card">
             {% csrf_token %}
             {{ form.as_p }}
+            <p class="availability-message" id="availability-message" aria-live="polite">Escolha uma data para ver os horários disponíveis.</p>
             <button type="submit">Agendar agora</button>
         </form>
     </section>

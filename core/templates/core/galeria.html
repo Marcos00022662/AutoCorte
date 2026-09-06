@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<section class="gallery-page">
+    <header class="list-header">
+        <p class="eyebrow">GALERIA</p>
+        <h1>Estilo em cada detalhe.</h1>
+        <p>Conheça os serviços da Auto Corte e escolha o atendimento ideal para você.</p>
+    </header>
+    <div class="gallery-grid">
+        {% for servico in servicos %}
+            <article class="gallery-item">
+                <div class="gallery-image">{% if servico.foto %}<img src="{{ servico.foto.url }}" alt="{{ servico.nome }}">{% else %}<span>Auto Corte</span>{% endif %}</div>
+                <div class="gallery-content">
+                    <h3>{{ servico.nome }}</h3><p>{{ servico.descricao|default:"Atendimento com qualidade e acabamento impecável." }}</p>
+                    <div class="gallery-details"><span>R$ {{ servico.preco|floatformat:2 }}</span><span>{{ servico.duracao }} min</span></div>
+                    <a class="book-service" href="{% url 'cadastrar_agendamento' %}?servico={{ servico.id }}">AGENDAR ESTE SERVIÇO</a>
+                </div>
+            </article>
+        {% empty %}<p class="gallery-empty">Em breve, você encontrará fotos e serviços por aqui.</p>{% endfor %}
+    </div>
+</section>
+{% endblock %}

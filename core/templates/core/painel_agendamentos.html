@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<section class="dashboard-page">
+    <header class="list-header"><p class="eyebrow">PAINEL INTERNO</p><h1>Agenda da barbearia</h1><p>Gerencie os próximos atendimentos e envie lembretes para os clientes de amanhã.</p></header>
+    <section class="reminder-section">
+        <div><p class="eyebrow">LEMBRETES DE AMANHÃ</p><h2>{{ lembretes|length }} atendimento{{ lembretes|length|pluralize:"s" }}</h2></div>
+        <div class="reminder-links">{% for agendamento in lembretes %}<a href="{{ agendamento.whatsapp_url }}" target="_blank" rel="noopener noreferrer">{{ agendamento.cliente.nome }} · {{ agendamento.horario|time:"H:i" }} <span>↗</span></a>{% empty %}<p>Nenhum lembrete para enviar.</p>{% endfor %}</div>
+    </section>
+    <div class="dashboard-table-wrap"><table class="dashboard-table"><thead><tr><th>Data</th><th>Horário</th><th>Cliente</th><th>Serviço</th><th>Status</th></tr></thead><tbody>
+        {% for agendamento in agendamentos %}<tr><td>{{ agendamento.data|date:"d/m/Y" }}</td><td>{{ agendamento.horario|time:"H:i" }}</td><td>{{ agendamento.cliente.nome }}<small>{{ agendamento.cliente.telefone }}</small></td><td>{{ agendamento.servico.nome }}</td><td><form method="post" action="{% url 'atualizar_status_agendamento' agendamento.id %}">{% csrf_token %}<select name="status" onchange="this.form.submit()">{% for valor, rotulo in agendamento.STATUS_CHOICES %}<option value="{{ valor }}" {% if agendamento.status == valor %}selected{% endif %}>{{ rotulo }}</option>{% endfor %}</select></form></td></tr>{% empty %}<tr><td colspan="5" class="empty-services">Nenhum agendamento futuro.</td></tr>{% endfor %}
+    </tbody></table></div>
+</section>
+{% endblock %}

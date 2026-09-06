@@ -37,3 +37,4 @@ ENV/
 
 .DS_Store
 Thumbs.db
+dados_autocorte.json

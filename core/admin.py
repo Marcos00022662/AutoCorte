@@ -43,6 +43,15 @@ class AgendamentoAdmin(admin.ModelAdmin):
         "status",
     )
 
+    list_editable = (
+        "status",
+    )
+
+    list_display_links = (
+        "cliente",
+        "servico",
+    )
+
     list_filter = (
         "status",
         "data",

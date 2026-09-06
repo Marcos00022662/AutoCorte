@@ -1,64 +1,118 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<section id="servicos" class="home-hero">
-    <div class="home-text">
-        <span>Boas-vindas</span>
+
+<section class="hero" id="inicio">
+    <div class="hero-copy">
+        <p class="eyebrow">BEM-VINDO AO AUTO CORTE</p>
         <h1>Auto Corte</h1>
-        <p>Um salão moderno com cortes precisos, atendimento acolhedor e horários rápidos para você sair pronto e confiante.</p>
-        <div class="hero-actions">
-            <a class="btn-primary" href="{% url 'cadastrar_agendamento' %}">Agendar horário</a>
-            <a class="btn-secondary" href="{% url 'listar_servicos' %}">Ver serviços</a>
+        <p class="tagline">"Deixando sua autoestima na régua."</p>
+        <p class="description">
+            Uma barbearia moderna, com cortes de qualidade, atendimento personalizado e horários que se encaixam na sua rotina.
+        </p>
+        <div class="cta-group">
+            <a class="btn-primary" href="{% url 'cadastrar_agendamento' %}">AGENDAR HORÁRIO</a>
+            <a class="btn-secondary" href="{% url 'listar_servicos' %}">VER SERVIÇOS</a>
         </div>
     </div>
 
-    <div class="hero-card">
-        <div class="hero-card-header">
-            <span>Serviço em destaque</span>
-            <strong>Corte + Barba</strong>
+    <aside class="featured-service">
+        <div class="service-header">
+            <span class="service-label">SERVIÇO EM DESTAQUE</span>
+            <span class="service-title">Corte + Barba</span>
         </div>
-        <p>Atendimento completo com corte detalhado, acabamento no estilo desejado e relaxante finalização de barba.</p>
-        <ul>
-            <li>Profissionais experientes</li>
-            <li>Produtos premium</li>
+        <p class="service-desc">Corte preciso, acabamento impecável e barba feita do seu jeito.</p>
+        <ul class="service-list">
+            <li>Profissional experiente</li>
+            <li>Produtos de qualidade</li>
             <li>Ambiente confortável</li>
         </ul>
-    </div>
+    </aside>
 </section>
 
-<section id="cortes">
+<section id="servicos">
     <h2>Serviços mais solicitados</h2>
     <div class="service-grid">
-        <article class="service-card">
+        <article class="service-item">
+            <span class="service-number">01</span>
             <h3>Corte masculino</h3>
             <p>Seu visual, seu estilo, seu corte.</p>
         </article>
-        <article class="service-card">
+        <article class="service-item">
+            <span class="service-number">02</span>
             <h3>Barba</h3>
             <p>Acabamento profissional para barba e contornos limpos.</p>
         </article>
-        <article class="service-card">
+        <article class="service-item">
+            <span class="service-number">03</span>
             <h3>Corte infantil</h3>
-            <p>Atendimento cuidadoso para os pequenos com resultados rápidos.</p>
+            <p>Corte infantil com praticidade, cuidado e bom acabamento.</p>
         </article>
     </div>
 </section>
 
-<section id="contato">
-    <h2>Contato</h2>
-    <p>Entre em contato comigo para agendar um horário ou para obter mais informações sobre nossos serviços.</p>
-    <div class="redes-sociais">
-        <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-            <i class="fa-brands fa-whatsapp"></i>
-        </a>
-        <a href="https://www.instagram.com/seuusuario/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <i class="fa-brands fa-instagram"></i>
-        </a>
+<section class="gallery-section" aria-labelledby="galeria-titulo">
+    <div class="gallery-heading">
+        <div>
+            <p class="eyebrow">NOSSO TRABALHO</p>
+            <h2 id="galeria-titulo">Escolha seu próximo visual.</h2>
+        </div>
+        <a class="text-link" href="{% url 'listar_servicos' %}">VER TODOS OS SERVIÇOS <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="gallery-grid">
+        {% for servico in servicos %}
+            <article class="gallery-item">
+                <div class="gallery-image">
+                    {% if servico.foto %}
+                        <img src="{{ servico.foto.url }}" alt="{{ servico.nome }}">
+                    {% else %}
+                        <span>Auto Corte</span>
+                    {% endif %}
+                </div>
+                <div class="gallery-content">
+                    <div>
+                        <h3>{{ servico.nome }}</h3>
+                        <p>{{ servico.descricao|default:"Atendimento com qualidade e acabamento impecável." }}</p>
+                    </div>
+                    <div class="gallery-details">
+                        <span>R$ {{ servico.preco|floatformat:2 }}</span>
+                        <span>{{ servico.duracao }} min</span>
+                    </div>
+                    <a class="book-service" href="{% url 'cadastrar_agendamento' %}?servico={{ servico.id }}">AGENDAR ESTE SERVIÇO</a>
+                </div>
+            </article>
+        {% empty %}
+            <p class="gallery-empty">Em breve, você encontrará nossos serviços e fotos nesta galeria.</p>
+        {% endfor %}
     </div>
 </section>
 
-<section id="sobre">
-    <h2>Sobre</h2>
-    <p>O Auto Corte é um serviço de corte de cabelo profissional, oferecendo uma experiência única para nossos clientes. Nossa equipe é composta por profissionais qualificados que estão sempre atualizados com as últimas tendências e técnicas de corte.</p>
+<section class="info-section">
+    <article class="info-item">
+        <span class="info-index">01</span>
+        <h3>Sobre a Auto Corte</h3>
+        <p>Barbearia jovem e sofisticada, com foco em cortes precisos, barba impecável e um atendimento pensado para quem valoriza qualidade e conforto.</p>
+    </article>
+    <article class="info-item">
+        <span class="info-index">02</span>
+        <h3>Nosso Endereço</h3>
+        <p>Av. Paulista, 1000 — Bela Vista
+        São Paulo - SP, 01310-100</p>
+    </article>
+    <article class="info-item">
+        <span class="info-index">03</span>
+        <h3>Agendamento</h3>
+        <p>Reserve seu horário pelo site e garanta um atendimento sem espera, com cortes e barba feitos no padrão que você espera.</p>
+    </article>
 </section>
+
+<section class="hero-footer">
+    <div>
+        <p class="eyebrow">PRONTO PARA MELHORAR O VISUAL?</p>
+        <h2>Venha para a Auto Corte e saia mais confiante.</h2>
+    </div>
+    <a class="btn-primary" href="{% url 'cadastrar_agendamento' %}">AGENDAR AGORA</a>
+</section>
+
 {% endblock %}

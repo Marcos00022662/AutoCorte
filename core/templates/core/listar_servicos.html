@@ -1,44 +1,46 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+<section class="services-page">
+    <header class="list-header">
+        <p class="eyebrow">TABELA DE SERVIÇOS</p>
+        <h1>Escolha o seu corte</h1>
+        <p>Confira os serviços, valores e a duração de cada atendimento.</p>
+    </header>
 
-<h1>LISTA DE SERVIÇOS</h1>
-
-<div class="table-responsive">
-    <table border="1" cellpadding="10">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Preço</th>
-                <th>Duração</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-
-    <tbody>
-        {% for servico in servicos %}
-            <tr>
-                <td>{{ servico.nome }}</td>
-                <td>R$ {{ servico.preco }}</td>
-                <td>{{ servico.duracao }}</td>
-                <td>
-                    <a href="{% url 'editar_servico' servico.id %}">
-                        Editar
-                    </a>
-
-                    <form action="{% url 'excluir_servico' servico.id %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <button class="button-link" type="submit">Excluir</button>
-                    </form>
-                </td>
-            </tr>
-        {% empty %}
-            <tr>
-                <td colspan="4">Nenhum serviço cadastrado.</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-    </table>
-</div>
-
+    <div class="table-responsive">
+        <table class="servicos-table">
+            <thead>
+                <tr>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Serviço</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Duração</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for servico in servicos %}
+                    <tr>
+                        <td class="foto-cell" data-label="Foto">
+                            {% if servico.foto %}
+                                <img src="{{ servico.foto.url }}" alt="Foto do serviço {{ servico.nome }}" class="foto-servico">
+                            {% else %}
+                                <span class="foto-indisponivel">Sem foto</span>
+                            {% endif %}
+                        </td>
+                        <td data-label="Serviço"><strong>{{ servico.nome }}</strong></td>
+                        <td class="service-description" data-label="Descrição">{{ servico.descricao|default:"Descrição em breve." }}</td>
+                        <td class="service-price" data-label="Preço">R$ {{ servico.preco|floatformat:2 }}</td>
+                        <td data-label="Duração">{{ servico.duracao }} min</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td class="empty-services" colspan="5">Nenhum serviço cadastrado no momento.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
 {% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<section class="error-page">
+    <p class="eyebrow">ERRO 404</p>
+    <p class="error-code" aria-hidden="true">404</p>
+    <h1>Essa página não foi encontrada.</h1>
+    <p class="error-description">O endereço pode estar incorreto ou a página pode ter sido movida. Volte ao início e encontre o seu próximo horário.</p>
+    <div class="cta-group">
+        <a class="btn-primary" href="{% url 'index' %}">VOLTAR AO INÍCIO</a>
+        <a class="btn-secondary" href="{% url 'listar_servicos' %}">VER SERVIÇOS</a>
+    </div>
+</section>
+{% endblock %}
