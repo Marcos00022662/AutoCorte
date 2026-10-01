@@ -1,14 +1,218 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+
 <section class="dashboard-page">
-    <header class="list-header"><p class="eyebrow">PAINEL INTERNO</p><h1>Agenda da barbearia</h1><p>Gerencie os próximos atendimentos e envie lembretes para os clientes de amanhã.</p></header>
+
+    <header class="list-header">
+
+        <p class="eyebrow">PAINEL INTERNO</p>
+
+        <h1>Agenda da barbearia</h1>
+
+        <p>
+            Gerencie os próximos atendimentos e envie lembretes
+            para os clientes de amanhã.
+        </p>
+
+    </header>
+
     <section class="reminder-section">
-        <div><p class="eyebrow">LEMBRETES DE AMANHÃ</p><h2>{{ lembretes|length }} atendimento{{ lembretes|length|pluralize:"s" }}</h2></div>
-        <div class="reminder-links">{% for agendamento in lembretes %}<a href="{{ agendamento.whatsapp_url }}" target="_blank" rel="noopener noreferrer">{{ agendamento.cliente.nome }} · {{ agendamento.horario|time:"H:i" }} <span>↗</span></a>{% empty %}<p>Nenhum lembrete para enviar.</p>{% endfor %}</div>
+
+        <div>
+
+            <p class="eyebrow">LEMBRETES DE AMANHÃ</p>
+
+            <h2>
+                {{ lembretes|length }}
+                atendimento{{ lembretes|length|pluralize:"s" }}
+            </h2>
+
+        </div>
+
+        <div class="reminder-links">
+
+            {% for agendamento in lembretes %}
+
+                <a
+                    href="{{ agendamento.whatsapp_url }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    {{ agendamento.cliente.nome }}
+                    ·
+                    {{ agendamento.horario|time:"H\:i" }}
+
+                    <span>↗</span>
+
+                </a>
+
+            {% empty %}
+
+                <p>Nenhum lembrete para enviar.</p>
+
+            {% endfor %}
+
+        </div>
+
     </section>
-    <div class="dashboard-table-wrap"><table class="dashboard-table"><thead><tr><th>Data</th><th>Horário</th><th>Cliente</th><th>Serviço</th><th>Status</th></tr></thead><tbody>
-        {% for agendamento in agendamentos %}<tr><td>{{ agendamento.data|date:"d/m/Y" }}</td><td>{{ agendamento.horario|time:"H:i" }}</td><td>{{ agendamento.cliente.nome }}<small>{{ agendamento.cliente.telefone }}</small></td><td>{{ agendamento.servico.nome }}</td><td><form method="post" action="{% url 'atualizar_status_agendamento' agendamento.id %}">{% csrf_token %}<select name="status" onchange="this.form.submit()">{% for valor, rotulo in agendamento.STATUS_CHOICES %}<option value="{{ valor }}" {% if agendamento.status == valor %}selected{% endif %}>{{ rotulo }}</option>{% endfor %}</select></form></td></tr>{% empty %}<tr><td colspan="5" class="empty-services">Nenhum agendamento futuro.</td></tr>{% endfor %}
-    </tbody></table></div>
+
+    <form method="get" class="dashboard-filters">
+
+        <label for="status">Filtrar por status:</label>
+
+        <select name="status" id="status">
+
+            <option value="">Todos</option>
+
+            <option value="pendente">
+                Pendente
+            </option>
+
+            <option value="confirmado">
+                Confirmado
+            </option>
+
+            <option value="cancelado">
+                Cancelado
+            </option>
+
+            <option value="concluido">
+                Concluído
+            </option>
+
+        </select>
+
+        <button type="submit">
+            Filtrar
+        </button>
+
+    </form>
+
+    <div class="dashboard-table-wrap">
+
+        <table class="dashboard-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Cliente</th>
+                    <th>Serviço</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for agendamento in agendamentos %}
+
+                    <tr>
+
+                        <td>
+                            {{ agendamento.data|date:"d/m/Y" }}
+                        </td>
+
+                        <td>
+                            {{ agendamento.horario|time:"H\:i" }}
+                        </td>
+
+                        <td>
+
+                            {{ agendamento.cliente.nome }}
+
+                            <small>
+                                {{ agendamento.cliente.telefone }}
+                            </small>
+
+                        </td>
+
+                        <td>
+                            {{ agendamento.servico.nome }}
+                        </td>
+
+                        <td>
+
+                            <span class="badge badge-{{ agendamento.status }}">
+                                {{ agendamento.get_status_display }}
+                            </span>
+
+                            <form
+                                method="post"
+                                action="{% url 'atualizar_status_agendamento' agendamento.id %}"
+                            >
+
+                                {% csrf_token %}
+
+                                <select
+                                    name="status"
+                                    onchange="this.form.submit()"
+                                >
+
+                                    {% for valor, rotulo in agendamento.STATUS_CHOICES %}
+
+                                        <option
+                                            value="{{ valor }}"
+                                            {% if agendamento.status == valor %}
+                                                selected
+                                            {% endif %}
+                                        >
+
+                                            {{ rotulo }}
+
+                                        </option>
+
+                                    {% endfor %}
+
+                                </select>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="5" class="empty-services">
+                            Nenhum agendamento futuro.
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
 </section>
+
+
+<section class="financial-summary">
+
+    <div>
+
+        <p class="eyebrow">PRÉVIA DE FATURAMENTO</p>
+
+        <h2>Faturamento do mês</h2>
+
+    </div>
+
+    <strong>
+        R$ {{ faturamento_mes|floatformat:2 }}
+    </strong>
+
+</section>
+
+
 {% endblock %}

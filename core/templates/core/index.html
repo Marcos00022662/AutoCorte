@@ -11,7 +11,7 @@
             Uma barbearia moderna, com cortes de qualidade, atendimento personalizado e horários que se encaixam na sua rotina.
         </p>
         <div class="cta-group">
-            <a class="btn-primary" href="{% url 'cadastrar_agendamento' %}">AGENDAR HORÁRIO</a>
+            <a class="btn-primary" href="{% url 'cadastrar_agendamento' %}">ESCOLHER HORÁRIO</a>
             <a class="btn-secondary" href="{% url 'listar_servicos' %}">VER SERVIÇOS</a>
         </div>
     </div>
@@ -28,6 +28,11 @@
             <li>Ambiente confortável</li>
         </ul>
     </aside>
+</section>
+
+<section class="trust-strip" aria-label="Diferenciais da Auto Corte">
+    <div><span>01</span><p>Atendimento com hora marcada</p></div>
+    <div><span>02</span><p>Acabamento em cada detalhe</p></div>
 </section>
 
 <section id="servicos">
@@ -67,7 +72,10 @@
                     {% if servico.foto %}
                         <img src="{{ servico.foto.url }}" alt="{{ servico.nome }}">
                     {% else %}
-                        <span>Auto Corte</span>
+                        <span class="image-placeholder" aria-label="Imagem do serviço em breve">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5h16v14H4Zm2-2h12l-3.8-5-2.7 3.4-1.8-2.1L6 17Zm0-10v3h12V7H6Z"/></svg>
+                            <span>Imagem em breve</span>
+                        </span>
                     {% endif %}
                 </div>
                 <div class="gallery-content">
@@ -79,11 +87,14 @@
                         <span>R$ {{ servico.preco|floatformat:2 }}</span>
                         <span>{{ servico.duracao }} min</span>
                     </div>
-                    <a class="book-service" href="{% url 'cadastrar_agendamento' %}?servico={{ servico.id }}">AGENDAR ESTE SERVIÇO</a>
+                    <a class="book-service" href="{% url 'cadastrar_agendamento' %}?servico={{ servico.id }}">RESERVAR ATENDIMENTO</a>
                 </div>
             </article>
         {% empty %}
-            <p class="gallery-empty">Em breve, você encontrará nossos serviços e fotos nesta galeria.</p>
+            <div class="gallery-empty">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a7 7 0 1 0 7 7 7 7 0 0 0-7-7Zm0 12a5 5 0 1 1 5-5 5 5 0 0 1-5 5Zm1-9h-2v5l4 2 .9-1.8-2.9-1.4V6Z"/></svg>
+                <p>A galeria está sendo preparada. Volte em breve para conhecer nossos serviços.</p>
+            </div>
         {% endfor %}
     </div>
 </section>
@@ -112,7 +123,7 @@
         <p class="eyebrow">PRONTO PARA MELHORAR O VISUAL?</p>
         <h2>Venha para a Auto Corte e saia mais confiante.</h2>
     </div>
-    <a class="btn-primary" href="{% url 'cadastrar_agendamento' %}">AGENDAR AGORA</a>
+    <a class="btn-primary" href="{% url 'cadastrar_agendamento' %}">QUERO RENOVAR O VISUAL</a>
 </section>
 
 {% endblock %}

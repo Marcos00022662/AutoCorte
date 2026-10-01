@@ -1,0 +1,23 @@
+.politica-privacidade {
+background-color: #ffffff !important;
+color: #000000 !important;
+}
+
+.politica-privacidade .container {
+max-width: 900px;
+margin: 0 auto;
+}
+.politica-privacidade p {
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.politica-privacidade ul {
+    margin-bottom: 25px;
+    padding-left: 25px;
+}
+
+.politica-privacidade li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}

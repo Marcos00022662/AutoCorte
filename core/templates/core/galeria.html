@@ -10,14 +10,14 @@
     <div class="gallery-grid">
         {% for servico in servicos %}
             <article class="gallery-item">
-                <div class="gallery-image">{% if servico.foto %}<img src="{{ servico.foto.url }}" alt="{{ servico.nome }}">{% else %}<span>Auto Corte</span>{% endif %}</div>
+                <div class="gallery-image">{% if servico.foto %}<img src="{{ servico.foto.url }}" alt="{{ servico.nome }}">{% else %}<span class="image-placeholder" aria-label="Imagem do serviço em breve"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5h16v14H4Zm2-2h12l-3.8-5-2.7 3.4-1.8-2.1L6 17Zm0-10v3h12V7H6Z"/></svg><span>Imagem em breve</span></span>{% endif %}</div>
                 <div class="gallery-content">
                     <h3>{{ servico.nome }}</h3><p>{{ servico.descricao|default:"Atendimento com qualidade e acabamento impecável." }}</p>
                     <div class="gallery-details"><span>R$ {{ servico.preco|floatformat:2 }}</span><span>{{ servico.duracao }} min</span></div>
-                    <a class="book-service" href="{% url 'cadastrar_agendamento' %}?servico={{ servico.id }}">AGENDAR ESTE SERVIÇO</a>
+                    <a class="book-service" href="{% url 'cadastrar_agendamento' %}?servico={{ servico.id }}">RESERVAR ATENDIMENTO</a>
                 </div>
             </article>
-        {% empty %}<p class="gallery-empty">Em breve, você encontrará fotos e serviços por aqui.</p>{% endfor %}
+        {% empty %}<div class="gallery-empty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a7 7 0 1 0 7 7 7 7 0 0 0-7-7Zm0 12a5 5 0 1 1 5-5 5 5 0 0 1-5 5Zm1-9h-2v5l4 2 .9-1.8-2.9-1.4V6Z"/></svg><p>A galeria está sendo preparada. Volte em breve para conhecer nossos serviços.</p></div>{% endfor %}
     </div>
 </section>
 {% endblock %}

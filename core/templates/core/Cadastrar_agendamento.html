@@ -1,18 +1,128 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-    <section class="page-hero">
-        <div class="page-title">
-            <span>Agendamento</span>
-            <h1>Cadastrar novo horário</h1>
-            <p>Preencha os dados do cliente, escolha o serviço e confirme o melhor horário para o atendimento.</p>
+
+<section class="page-hero">
+
+<div class="page-title">
+    <span>Agendamento</span>
+
+    <h1>Cadastrar novo horário</h1>
+
+    <p>
+        Preencha seus dados, escolha o serviço e selecione
+        o melhor horário para o atendimento.
+    </p>
+</div>
+
+
+<form method="post" class="form-card js-booking-form">
+
+    {% csrf_token %}
+
+
+    {% if form.non_field_errors %}
+        <div class="form-errors">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+
+    <div class="form-section">
+
+        <div class="form-section-title">
+            <h2>Dados do cliente</h2>
+
+            <p>
+                Informe seus dados para realizar o agendamento.
+            </p>
         </div>
 
-        <form method="post" class="form-card">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <p class="availability-message" id="availability-message" aria-live="polite">Escolha uma data para ver os horários disponíveis.</p>
-            <button type="submit">Agendar agora</button>
-        </form>
-    </section>
+
+        <div class="form-fields">
+
+            {% for field in form %}
+
+                {% if field.name == "nome" or field.name == "telefone" or field.name == "email" %}
+
+                    <div class="form-field{% if field.errors %} has-error{% endif %}">
+
+                        {{ field.label_tag }}
+
+                        {{ field }}
+
+                        {% if field.help_text %}
+                            <small>{{ field.help_text }}</small>
+                        {% endif %}
+
+                        {{ field.errors }}
+
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+    <div class="form-section">
+
+        <div class="form-section-title">
+            <h2>Detalhes do atendimento</h2>
+
+            <p>
+                Escolha o serviço, a data e o horário desejado.
+            </p>
+        </div>
+
+
+        <div class="form-fields">
+
+            {% for field in form %}
+
+                {% if field.name == "servico" or field.name == "data" or field.name == "horario" %}
+
+                    <div class="form-field{% if field.errors %} has-error{% endif %}">
+
+                        {{ field.label_tag }}
+
+                        {{ field }}
+
+                        {% if field.help_text %}
+                            <small>{{ field.help_text }}</small>
+                        {% endif %}
+
+                        {{ field.errors }}
+
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+
+        <p
+            class="availability-message"
+            id="availability-message"
+            aria-live="polite"
+        >
+            Escolha uma data para ver os horários disponíveis.
+        </p>
+
+    </div>
+
+
+    <button type="submit">
+        Agendar agora
+    </button>
+
+</form>
+
+</section>
+
 {% endblock %}

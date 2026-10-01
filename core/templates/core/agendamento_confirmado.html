@@ -6,9 +6,39 @@
     <h1>Seu horário foi reservado.</h1>
     <p class="confirmation-copy">{{ agendamento.cliente.nome }}, registramos seu pedido para <strong>{{ agendamento.servico.nome }}</strong> no dia {{ agendamento.data|date:"d/m/Y" }} às {{ agendamento.horario|time:"H:i" }}.</p>
     <div class="confirmation-summary"><span>{{ agendamento.servico.nome }}</span><span>{{ agendamento.data|date:"d/m/Y" }} · {{ agendamento.horario|time:"H:i" }}</span></div>
-    <div class="cta-group">
-        <a class="btn-primary" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer">CONFIRMAR NO WHATSAPP</a>
-        <a class="btn-secondary" href="{% url 'index' %}">VOLTAR AO INÍCIO</a>
+    <div class="confirmation-next-steps">
+        <p class="eyebrow">PRÓXIMOS PASSOS</p>
+        <ol>
+            <li>Confirme os dados do atendimento pelo WhatsApp.</li>
+            <li>Chegue alguns minutos antes do horário reservado.</li>
+            <li>Em caso de imprevisto, entre em contato para reagendar.</li>
+        </ol>
     </div>
+
+<nav class="cta-group" aria-label="Ações do agendamento">
+    <a
+        class="btn-primary"
+        href="{{ whatsapp_url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        CONFIRMAR NO WHATSAPP
+    </a>
+
+    <a
+        class="btn-secondary"
+        href="{% url 'reagendar_agendamento' token=agendamento.token %}"
+    >
+        REAGENDAR HORÁRIO
+    </a>
+
+    <a
+        class="btn-secondary"
+        href="{% url 'index' %}"
+    >
+        VOLTAR AO INÍCIO
+    </a>
+</nav>
+    
 </section>
 {% endblock %}

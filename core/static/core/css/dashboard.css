@@ -1,0 +1,340 @@
+/* ========================================
+   PAINEL / RELATÓRIO DE AGENDAMENTOS
+   ======================================== */
+
+.dashboard-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+}
+
+/* Cabeçalho */
+
+.dashboard-page .list-header {
+    margin-bottom: 35px;
+}
+
+.dashboard-page .list-header h1 {
+    margin: 8px 0 12px;
+    color: #f5f0e8;
+}
+
+.dashboard-page .list-header > p:last-child {
+    color: #bdb6ad;
+    line-height: 1.6;
+    max-width: 700px;
+}
+
+.eyebrow {
+    color: #c9a66b;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin: 0;
+}
+
+/* ========================================
+   LEMBRETES
+   ======================================== */
+
+.reminder-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+
+    margin-bottom: 30px;
+    padding: 25px;
+
+    background: #100101;
+    border: 1px solid rgba(201, 166, 107, 0.35);
+    border-radius: 12px;
+}
+
+.reminder-section h2 {
+    margin: 8px 0 0;
+    color: #f5f0e8;
+}
+
+.reminder-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.reminder-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 14px;
+
+    border: 1px solid rgba(201, 166, 107, 0.5);
+    border-radius: 6px;
+
+    color: #d6b57a;
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+.reminder-links a:hover {
+    background: rgba(201, 166, 107, 0.1);
+    border-color: #c9a66b;
+}
+
+.reminder-links span {
+    font-size: 15px;
+}
+
+/* ========================================
+   FILTRO
+   ======================================== */
+
+.dashboard-filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 25px;
+    padding: 18px 20px;
+
+    background: #100101;
+    border: 1px solid rgba(201, 166, 107, 0.35);
+    border-radius: 10px;
+}
+
+.dashboard-filters label {
+    color: #f5f0e8;
+    font-weight: 600;
+}
+
+.dashboard-filters select {
+    min-width: 180px;
+
+    padding: 10px 12px;
+
+    background: #0e0e0e;
+    color: #f5f0e8;
+
+    border: 1px solid #555;
+    border-radius: 6px;
+
+    outline: none;
+}
+
+.dashboard-filters select:focus {
+    border-color: #c9a66b;
+}
+
+.dashboard-filters button {
+    padding: 10px 20px;
+
+    border: 1px solid #c9a66b;
+    border-radius: 6px;
+
+    background: #c9a66b;
+    color: #100101;
+
+    font-weight: 700;
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.dashboard-filters button:hover {
+    background: #d6b57a;
+    transform: translateY(-1px);
+}
+
+/* ========================================
+   TABELA
+   ======================================== */
+
+.dashboard-table-wrap {
+    overflow-x: auto;
+
+    background: #100101;
+    border: 1px solid rgba(201, 166, 107, 0.35);
+    border-radius: 12px;
+}
+
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 750px;
+}
+
+.dashboard-table th {
+    padding: 16px;
+
+    background: #0e0e0e;
+    color: #d6b57a;
+
+    text-align: left;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-table td {
+    padding: 15px 16px;
+
+    color: #f5f0e8;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dashboard-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.dashboard-table tbody tr:hover {
+    background: rgba(201, 166, 107, 0.05);
+}
+
+.dashboard-table td small {
+    display: block;
+    margin-top: 4px;
+
+    color: #999;
+    font-size: 12px;
+}
+
+/* ========================================
+   STATUS
+   ======================================== */
+
+.dashboard-table .badge {
+    display: inline-block;
+
+    margin-bottom: 8px;
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.badge-pendente {
+    background: rgba(201, 166, 107, 0.15);
+    color: #d6b57a;
+}
+
+.badge-confirmado {
+    background: rgba(90, 150, 100, 0.15);
+    color: #8fc99a;
+}
+
+.badge-cancelado {
+    background: rgba(180, 70, 70, 0.15);
+    color: #e38b8b;
+}
+
+.badge-concluido {
+    background: rgba(90, 120, 180, 0.15);
+    color: #91afe0;
+}
+
+.dashboard-table td form {
+    margin: 0;
+}
+
+.dashboard-table td select {
+    width: 100%;
+    max-width: 150px;
+
+    padding: 7px 9px;
+
+    background: #0e0e0e;
+    color: #f5f0e8;
+
+    border: 1px solid #444;
+    border-radius: 5px;
+}
+
+.dashboard-table td select:focus {
+    border-color: #c9a66b;
+    outline: none;
+}
+
+/* ========================================
+   ESTADO VAZIO
+   ======================================== */
+
+.dashboard-table .empty-services {
+    padding: 35px 20px;
+
+    color: #999;
+    text-align: center;
+}
+
+/* ========================================
+   RESUMO FINANCEIRO
+   ======================================== */
+
+.financial-summary {
+    max-width: 1200px;
+    margin: 25px auto 50px;
+    padding: 25px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    background: #100101;
+    border: 1px solid rgba(201, 166, 107, 0.35);
+    border-radius: 12px;
+}
+
+.financial-summary h2 {
+    margin: 8px 0 0;
+    color: #f5f0e8;
+}
+
+.financial-summary strong {
+    color: #d6b57a;
+    font-size: 28px;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+@media (max-width: 700px) {
+
+    .dashboard-page {
+        padding: 30px 15px;
+    }
+
+    .reminder-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .reminder-links {
+        justify-content: flex-start;
+    }
+
+    .dashboard-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .dashboard-filters select,
+    .dashboard-filters button {
+        width: 100%;
+    }
+
+    .financial-summary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .financial-summary strong {
+        font-size: 24px;
+    }
+}

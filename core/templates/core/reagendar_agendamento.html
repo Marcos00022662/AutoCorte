@@ -1,0 +1,33 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<main>
+    <section class="page-hero" aria-labelledby="reagendamento-titulo">
+
+        <header class="page-title">
+            <span>Reagendamento</span>
+
+            <h1 id="reagendamento-titulo">
+                Alterar meu horário
+            </h1>
+
+            <p>
+                Escolha uma nova data e um novo horário para o seu atendimento.
+            </p>
+        </header>
+
+        <form method="post" class="form-card">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">
+                Reagendar horário
+            </button>
+        </form>
+
+    </section>
+</main>
+
+{% endblock %}
