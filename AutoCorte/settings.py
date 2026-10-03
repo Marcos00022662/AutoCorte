@@ -142,7 +142,7 @@ WSGI_APPLICATION = "AutoCorte.wsgi.application"
 # Local: MariaDB/MySQL
 # Render: PostgreSQL
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = (os.getenv("DATABASE_URL") or os.getenv("POSTGRES_URL") or "").strip()
 
 if DATABASE_URL:
     DATABASES = {
