@@ -141,13 +141,17 @@ WSGI_APPLICATION = "AutoCorte.wsgi.application"
 # Local: MariaDB/MySQL
 # Render: PostgreSQL
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL") or os.getenv("POSTGRES_URL")
 
 
 if DATABASE_URL:
     from urllib.parse import urlparse, unquote
 
     db_url = urlparse(DATABASE_URL)
+    db_options = {}
+
+    if db_url.hostname and db_url.hostname not in {"localhost", "127.0.0.1"}:
+        db_options["sslmode"] = "require"
 
     DATABASES = {
         "default": {
@@ -157,6 +161,7 @@ if DATABASE_URL:
             "PASSWORD": unquote(db_url.password or ""),
             "HOST": db_url.hostname,
             "PORT": db_url.port or 5432,
+            "OPTIONS": db_options,
         }
     }
 
