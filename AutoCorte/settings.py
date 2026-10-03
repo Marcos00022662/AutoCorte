@@ -70,6 +70,10 @@ ALLOWED_HOSTS = [
     if host.strip()
 ]
 
+render_hostname = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+if render_hostname and render_hostname not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(render_hostname)
+
 
 # CSRF
 csrf_origins = os.getenv(
