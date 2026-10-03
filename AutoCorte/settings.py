@@ -115,17 +115,21 @@ WSGI_APPLICATION = 'AutoCorte.wsgi.application'
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if DATABASE_URL:
+    from urllib.parse import urlparse, unquote
+
+    db_url = urlparse(DATABASE_URL)
+
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("PGDATABASE"),
-            "USER": os.getenv("PGUSER"),
-            "PASSWORD": os.getenv("PGPASSWORD"),
-            "HOST": os.getenv("PGHOST"),
-            "PORT": os.getenv("PGPORT", "5432"),
+            "NAME": db_url.path.lstrip("/"),
+            "USER": unquote(db_url.username or ""),
+            "PASSWORD": unquote(db_url.password or ""),
+            "HOST": db_url.hostname,
+            "PORT": db_url.port or 5432,
         }
     }
-
+    
 elif (
     MYSQL_AVAILABLE
     and os.getenv("DB_NAME")
