@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 from dotenv import load_dotenv
 
 try:
@@ -141,28 +142,15 @@ WSGI_APPLICATION = "AutoCorte.wsgi.application"
 # Local: MariaDB/MySQL
 # Render: PostgreSQL
 
-DATABASE_URL = os.getenv("DATABASE_URL") or os.getenv("POSTGRES_URL")
-
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 if DATABASE_URL:
-    from urllib.parse import urlparse, unquote
-
-    db_url = urlparse(DATABASE_URL)
-    db_options = {}
-
-    if db_url.hostname and db_url.hostname not in {"localhost", "127.0.0.1"}:
-        db_options["sslmode"] = "require"
-
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": db_url.path.lstrip("/"),
-            "USER": unquote(db_url.username or ""),
-            "PASSWORD": unquote(db_url.password or ""),
-            "HOST": db_url.hostname,
-            "PORT": db_url.port or 5432,
-            "OPTIONS": db_options,
-        }
+        "default": dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True,
+        )
     }
 
 
