@@ -25,6 +25,8 @@ if (navigation && navigationToggle) {
             !navigation.contains(event.target)
         ) {
             setMenuState(false);
+
+
         }
     });
 

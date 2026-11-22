@@ -1,3 +1,4 @@
+
 """
 Django settings for AutoCorte project.
 
@@ -28,15 +29,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
-
-
+# Quick-start development settings
 # SECURITY WARNING: keep the secret key used in production!
-SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
+
+SECRET_KEY = os.getenv("SECRET_KEY", "")
+
+if not SECRET_KEY:
+    if os.getenv("DEBUG", "False").strip().lower() != "true":
+        raise ValueError("SECRET_KEY não configurada no ambiente.")
+
+    SECRET_KEY = "dev-secret-key-change-me"
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = os.getenv("DEBUG", "False").strip().lower() == "true"
 
 SECURE_SSL_REDIRECT = not DEBUG
@@ -61,6 +67,7 @@ X_FRAME_OPTIONS = "DENY"
 
 
 # Hosts permitidos
+
 ALLOWED_HOSTS = [
     host.strip()
     for host in os.getenv(
@@ -71,11 +78,13 @@ ALLOWED_HOSTS = [
 ]
 
 render_hostname = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+
 if render_hostname and render_hostname not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append(render_hostname)
 
 
 # CSRF
+
 csrf_origins = os.getenv(
     "CSRF_TRUSTED_ORIGINS",
     "http://127.0.0.1:8080,http://localhost:8080,"
@@ -83,7 +92,6 @@ csrf_origins = os.getenv(
 )
 
 # Render fornece automaticamente o domínio externo do serviço.
-render_hostname = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 
 if render_hostname:
     csrf_origins += f",https://{render_hostname}"
@@ -143,10 +151,15 @@ WSGI_APPLICATION = "AutoCorte.wsgi.application"
 
 
 # Database
-# Local: MariaDB/MySQL
-# Render: PostgreSQL
+# Neon: PostgreSQL
+# Local: MySQL
+# Fallback: SQLite
 
-DATABASE_URL = (os.getenv("DATABASE_URL") or os.getenv("POSTGRES_URL") or "").strip()
+DATABASE_URL = (
+    os.getenv("DATABASE_URL")
+    or os.getenv("POSTGRES_URL")
+    or ""
+).strip()
 
 if DATABASE_URL:
     DATABASES = {
@@ -156,7 +169,6 @@ if DATABASE_URL:
             ssl_require=True,
         )
     }
-
 
 elif (
     MYSQL_AVAILABLE
@@ -179,7 +191,6 @@ elif (
         }
     }
 
-
 else:
     DATABASES = {
         "default": {
@@ -190,7 +201,6 @@ else:
 
 
 # Password validation
-# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -209,7 +219,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
 
 LANGUAGE_CODE = "pt-br"
 
@@ -220,8 +229,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
+# Static files
 
 STATIC_URL = "/static/"
 

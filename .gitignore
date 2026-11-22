@@ -38,3 +38,8 @@ ENV/
 .DS_Store
 Thumbs.db
 dados_autocorte.json
+
+.env
+venv/
+__pycache__/
+*.py[cod]
