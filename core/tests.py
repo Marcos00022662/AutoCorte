@@ -1,6 +1,6 @@
 from django.test import TestCase
 from core.models import Cliente, Servico, Agendamento
-from datetime import date, time 
+from datetime import date, time, timedelta
 from django.core.exceptions import ValidationError
 from core.forms import ReagendamentoForm
 # Creat e your tests here.
@@ -31,6 +31,15 @@ class TesteAgenda(TestCase):
             data= date(2026, 10, 30),
             horario=time(10, 0),
             status="pendente"
+        )
+
+    def test_pagina_cadastrar_agendamento_existe(self):
+        resposta = self.client.get("/cadastrar-agendamento/")
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertTemplateUsed(
+            resposta,
+            "core/cadastrar_agendamento.html",
         )
     def test_conflito_de_horario(self):
         segundo_agendamento = Agendamento(
@@ -119,10 +128,11 @@ class TesteAgenda(TestCase):
             self.agendamento.full_clean()
 
     def test_formulario_reagendamento_valido(self):
+        data_futura = date.today() + timedelta(days=7)
         formulario = ReagendamentoForm(
             data={
                 "novo_horario": "14:00",
-                "nova_data": "2026-11-02",
+                "nova_data": data_futura.isoformat(),
             },
             horarios_disponiveis=["10:00", "11:00", "14:00", "15:00"],
             instance=self.agendamento,
@@ -143,10 +153,11 @@ class TesteAgenda(TestCase):
         self.assertIn("nova_data", formulario.errors)
 
     def test_reagendamento_com_horario_indisponivel(self):
+        data_futura = date.today() + timedelta(days=7)
         formulario = ReagendamentoForm(
             data={
                 "novo_horario": "13:00",
-                "nova_data": "2026-11-02",
+                "nova_data": data_futura.isoformat(),
             },
             horarios_disponiveis=["10:00", "11:00", "14:00", "15:00"],
             instance=self.agendamento,
