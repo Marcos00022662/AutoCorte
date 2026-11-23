@@ -249,4 +249,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = "/media/"
 
-MEDIA_ROOT = BASE_DIR / "media"
+# Permite usar um disco persistente em producao (por exemplo,
+# MEDIA_ROOT=/var/data/media no Render) e manter o padrao local.
+MEDIA_ROOT = Path(os.getenv("MEDIA_ROOT", str(BASE_DIR / "media")))
